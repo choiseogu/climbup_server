@@ -1,0 +1,11 @@
+package com.climbup.common;
+
+public enum ErrorCode {
+    VALIDATION_ERROR,
+    EMAIL_DUPLICATED,
+    INVALID_CREDENTIALS,
+    KAKAO_AUTH_FAILED,
+    NOT_FOUND,
+    FORBIDDEN,
+    DUPLICATE_SESSION
+}
