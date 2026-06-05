@@ -1,5 +1,6 @@
 package com.climbup.config;
 
+import com.climbup.auth.JwtAuthenticationEntryPoint;
 import com.climbup.auth.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +22,11 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
     }
 
     // 비밀번호 해싱 도구를 Spring 부품으로 등록
@@ -44,7 +47,8 @@ public class SecurityConfig {
                 )
                 .addFilterBefore(jwtAuthenticationFilter, // jwt 필터를 표준 필터 앞에 끼워서 jwt 필터 먼저 적용
                         UsernamePasswordAuthenticationFilter.class)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource));
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint));
 
         return http.build();
     }

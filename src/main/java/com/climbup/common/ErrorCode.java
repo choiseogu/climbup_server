@@ -7,5 +7,6 @@ public enum ErrorCode {
     KAKAO_AUTH_FAILED,
     NOT_FOUND,
     FORBIDDEN,
-    DUPLICATE_SESSION
+    DUPLICATE_SESSION,
+    UNAUTHORIZED
 }
